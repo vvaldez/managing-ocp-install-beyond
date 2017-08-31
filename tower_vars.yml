@@ -5,7 +5,9 @@ tower_password: rhte2017
 tower_org: "Default"
 tower_projects_root: "/var/lib/awx/projects"
 tower_keep_cli_credentials: True
-tower_cli_verbosity: "-v"
+tower_cli_verbosity: "--verbose"
+# For Tower Job Template verbosity choices are 'verbose' or 'debug'
+tower_job_template_verbosity: 'verbose'
 
 # Tower cloud credential
 tower_cloud_credential: "AWS"
@@ -70,48 +72,56 @@ tower_job_template_deploy_provision: "Deploy-1-Provision"
 tower_job_template_deploy_provision_description: "Deployment Step 1 - Creates AWS instances to be used as an OCP cluster in later job templates"
 tower_job_template_deploy_provision_playbook: "aws_create_hosts.yml"
 tower_job_template_deploy_provision_extra_vars_path: "aws_job_template_extra_vars.yml.j2"
+tower_job_template_deploy_provision_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Tower job template for deployment-install
 tower_job_template_deploy_install: "Deploy-2-Install"
 tower_job_template_deploy_install_description: "Deployment Step 2 - Installs OpenShift Container Platform"
 tower_job_template_deploy_install_playbook: "ansible/openshift-ansible/playbooks/byo/config.yml"
 tower_job_template_deploy_install_become_enabled: "yes"
+tower_job_template_deploy_install_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Job template for deployment-configure
 tower_job_template_deploy_configure: "Deploy-3-Post-Install"
 tower_job_template_deploy_configure_description: "Deployment Step 3 - Post-install configuration"
 tower_job_template_deploy_configure_playbook: "openshift_postinstall.yml"
 tower_job_template_deploy_configure_become_enabled: "yes"
+tower_job_template_deploy_configure_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Tower job template for scaleup-provision
 tower_job_template_scaleup_provision: "Scaleup-1-Provision"
 tower_job_template_scaleup_provision_description: "Scaleup Step 1 - Creates AWS instance to be added to the existing OCP cluster"
 tower_job_template_scaleup_provision_playbook: "aws_add_node.yml"
 tower_job_template_scaleup_provision_extra_vars_path: "{{ tower_job_template_deploy_provision_extra_vars_path }}"
+tower_job_template_scaleup_provision_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Tower job template for scaleup-install
 tower_job_template_scaleup_install: "Scaleup-2-Install"
 tower_job_template_scaleup_install_description: "Scaleup Step 2 - Add instance as a node to existing OCP cluster"
 tower_job_template_scaleup_install_playbook: "ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml"
 tower_job_template_scaleup_install_become_enabled: "yes"
+tower_job_template_scaleup_install_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Job template for scaleup-configure
 tower_job_template_scaleup_configure: "Scaleup-3-Post-Install"
 tower_job_template_scaleup_configure_description: "Scaleup Step 3 Post-Install configuration"
 tower_job_template_scaleup_configure_playbook: "openshift_postinstall.yml"
 tower_job_template_scaleup_configure_become_enabled: "yes"
+tower_job_template_scaleup_configure_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Tower job template for terminate-ocp
 tower_job_template_terminate_ocp: "Terminate-OCP"
 tower_job_template_terminate_ocp_description: "Terminate all OpenShift masters and nodes"
 tower_job_template_terminate_ocp_playbook: "aws_terminate_instances.yml"
 tower_job_template_terminate_ocp_extra_vars: "terminate_tower=false"
+tower_job_template_terminate_ocp_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Tower job template for terminate-all
 tower_job_template_terminate_all: "Terminate-All"
 tower_job_template_terminate_all_description: "Terminate all instances including Tower"
 tower_job_template_terminate_all_playbook: "aws_terminate_instances.yml"
 tower_job_template_terminate_all_extra_vars: "terminate_tower=true"
+tower_job_template_terminate_all_verbosity: "{{ tower_job_template_verbosity }}"
 
 # Tower Workflow Assets for Deploy job
 tower_workflow_template_deploy: "1-Deploy_OpenShift_on_AWS"
