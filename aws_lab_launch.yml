@@ -77,4 +77,4 @@
         value: "{{ hostvars[inventory_hostname].public_ip }}"
 
 - include: tower_config.yml
-  when: tower_config|bool == true
+  when: tower_config is defined

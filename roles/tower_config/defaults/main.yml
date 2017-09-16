@@ -4,12 +4,6 @@ tower_username: admin
 tower_password: "{{ tower_password }}"
 tower_projects_root: "/var/lib/awx/projects"
 tower_user_add: true
-# tower config types are: none, self, full, or test. These are simply an easier way to enable a set of booleans, anything can be overridden as needed. 
-# - none: do not configure anything in tower. This is effectively the same as setting tower_config: false
-# - self (default): sets up a job template that completes the configuration when launched.
-# - full: configures everything in Tower except the self-coinfigure job template.
-# - test: configures everything in Tower. Launches all job and workflow templates except for self-configure and terminate
-tower_config_type: "self"
 
 # Tower CLI config
 tower_cli_credentials_config: true
